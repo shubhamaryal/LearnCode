@@ -1,0 +1,14 @@
+#mybox{
+    background-color: lightgreen;
+    height: 300px;
+    width: 300px;
+    font-size: 4.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#button{
+    font-size: 3rem;
+}

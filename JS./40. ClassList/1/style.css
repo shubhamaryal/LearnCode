@@ -1,0 +1,39 @@
+#myH1{
+    font-size:  5rem;
+}
+
+#myButton{
+    font-size: 4rem;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 15px;
+}
+
+.enabled{
+    background-color: aqua;
+    color: white;
+}
+
+/*
+    the enabled isnt being applied on the button, we willl add it dynamically 
+    using javascript
+*/
+
+.hover{
+    box-shadow:  0 0 10px grey;
+    font-weight: bold;
+}
+
+/*
+    we will add the hover class too using js 
+*/
+
+.disabled{
+    background-color: grey;
+    color: lightblue;
+}
+
+/*
+    we can reuse all this css classes among many html elements
+*/

@@ -1,0 +1,41 @@
+/* FLOAT */
+/* float ley chai image or kei obj ko left ra right ma text lai rakhney kam grxa */
+/* to stop floating we can use clear property */
+
+img{
+    float: right;
+}
+
+#divv{
+    margin-bottom:200px ;
+}
+
+.box{
+    width: 100px;
+    height: 100px;
+    border: 1px solid;
+    font-size: 40px;
+    text-align: center;
+    background-color: tomato;
+
+    float: left;
+}
+
+.box1{
+    width: 100px;
+    height: 100px;
+    border: 1px solid;
+    font-size: 40px;
+    text-align: center;
+    background-color: limegreen;
+
+    float: right;
+}
+
+#p2{
+    clear: right; /* clear ley chai specific float text lai remove grxa */
+}
+
+#divvv{
+    margin-top:100px ;
+}

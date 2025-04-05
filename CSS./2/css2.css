@@ -1,0 +1,56 @@
+/*background*/
+
+body{
+   background-image: url(https://wallpapers.com/images/featured/demon-slayer-tanjiro-pictures-rjjv7bxgdfl9qwy3.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+h1{
+    background:linear-gradient(to right, skyblue, white);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+p{
+    background:linear-gradient(to left, skyblue, white);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* margin */
+
+#box1{
+    border: 5px solid white;
+    width: 250px;
+    height: 250px;
+    font-size: 22px;
+    background: greenyellow;
+    padding: 30px;
+
+    /* margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    sab side ko margin same xa vnee ekai choti eutai margin matra use grnu milxa
+
+    margin: 50px; */
+    margin-right: auto;
+    margin-left: auto; /* right left duitai margin use gryo vne chai centre ma basxa */
+    margin-bottom: 50px;
+}
+
+#box2{
+    border: 5px solid white;
+    width: 250px;
+    height: 250px;
+    font-size: 22px;
+    background: rgb(14, 243, 201);
+    padding: 30px;
+    margin-left: auto; /* left ma matra chipkera basxa */
+}
+
+/*inspect ma gyera hernu milxa yo sabai margin haru [element/style] */

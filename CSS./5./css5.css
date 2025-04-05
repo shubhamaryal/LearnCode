@@ -1,0 +1,68 @@
+a:link{
+    color: red;
+}
+a:visited{
+    color: grey;
+}
+a:hover{
+    color: aqua;
+}
+a:active{
+    color: yellow;
+}
+
+button:hover{
+    background-color: red;
+    color: aqua;
+}
+button:active{
+    background-color: blueviolet;
+}
+
+/*
+li:nth-child(5){
+    background-color: yellow;
+}
+*/
+
+li:nth-child(even){
+    background-color: skyblue;
+}
+
+li:nth-child(odd){
+    background-color: powderblue;
+}
+
+.lii:nth-child(2n+1){
+    background-color: rgb(33, 205, 62);
+}
+
+.lii:nth-child(2n){
+    background-color: rgb(17, 227, 101);
+}
+
+/* () vitra chai maths ko sequencce and series ko formula lekhna milxa */
+
+#a{
+    text-shadow: 5px 5px 5px hotpink; 
+    /* text-shadow: [x-axis] [y-axis] [blur] [color]; */ /* axis chai neg ma ni hunxa */
+}
+
+#b{
+    text-shadow: 0px 0px 5px yellow, 0px -5px 5px red;
+    box-shadow: 5px 5px 5px black;
+}
+
+#c:hover{
+    box-shadow: 5px 5px 5px blue;
+}
+
+.fa-youtube{
+    color: red;
+    font-size: 50px;
+}
+
+.fa-facebook{
+    color: blue;
+    font-size: 50px;
+}

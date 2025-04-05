@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FORMS</title>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="fname">First name:</label>
+            <input type="text" id="fname" name="fname" placeholder="Eg: Shubham">
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname" placeholder="Eg: Aryal">
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" name="pass" maxlength="12" required>
+        </div>
+
+        <br>
+        
+        <div>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="xyz@gmail.com" required>
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="phone">Phone no.:</label>
+            <input type="tel" id="phone" name="phone" placeholder="1234567890" required>
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="bdate">Birthdate:</label>
+            <input type="date" id="bdate" name="bdate">
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="0" max="99" value="1">
+        </div>
+        
+        <br>
+        
+        <div>
+			<label for="Title"> Title: </label>
+
+            <label for="a"> Mr.</label>
+            <input type="radio" id="a" name="title" value="Mr.">
+            
+            <label for="b">Mrs.</label>
+            <input type="radio" id="b" name="title" value="Mrs.">
+            
+            <label for="c">PhD.</label>
+            <input type="radio" id="c" name="title" value="PhD.">
+        </div>
+        
+        <br>
+
+        <div>
+            <label for="payment"> Payment: </label>
+            <select id="payment" name="payment" >
+                <option value="Option A"> A </option>
+                <option value="Option B"> B </option>
+                <option value="Option C"> C </option>
+            </select>
+        </div>
+
+        <br>
+
+        <div>
+            <label for ="checkbox"> Checkbox: </label>
+            <input type="checkbox" id="checkbox" name="checkbox">
+        </div>
+
+        <br>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>

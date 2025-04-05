@@ -1,0 +1,148 @@
+#a{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: red;
+    margin-bottom: 20px;
+
+    animation: Box;
+    animation-iteration-count: infinite;
+    animation-duration:  5s;
+    animation-play-state:running;
+    animation-delay: 0s ; /* yo chai web kholyesi suru ma huney ho */
+    animation-timing-function:ease-in;
+
+    /* animation: 5s ease-in 0s infinite running Box; */
+    /* yo chai sab ko ekai thau ma lekhna milxa */
+}
+
+@keyframes Box{
+    from{margin-left: 100%;}
+    to{margin-left: 0%;}
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#b{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: blue;
+    margin-bottom: 20px;
+}
+#b:hover{
+    animation: 5s ease-in 0s infinite running BoxB;
+}
+
+@keyframes BoxB{
+    from{margin-left: 0%;}
+    to{margin-left: 100%;}
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#c{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: green;
+    margin-bottom: 40px;
+}
+#c:active{
+    animation: 5s ease-in 0s infinite running BoxC;
+}
+
+@keyframes BoxC{
+    from{margin-left: 0%;}
+    to{margin-left: 100%;}
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#d{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: skyblue;
+    margin-bottom: 40px;
+    margin-left: 50px;
+
+    animation: 5s ease-in 0s infinite running BoxD;
+}
+
+@keyframes BoxD{
+    100%{transform: rotateZ(360deg);} 
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#e{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: yellow;
+    margin-bottom: 40px;
+
+    animation: 5s ease-in 0s infinite running BoxE;
+}
+
+@keyframes BoxE {
+    50%{opacity: 0;}
+
+        /* 
+        0% { opacity: 1; }  At the start of the animation, the element is fully opaque. 
+        50% { opacity: 0; }  At the midpoint of the animation, the element is fully transparent.
+        100% { opacity: 1; }  At the end of the animation, the element is fully opaque again. 
+        */
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#f{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: cyan;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    margin-left: 100px;
+
+    animation: 3s ease-in 0s infinite running BoxF;
+}
+
+@keyframes BoxF {
+    50%{transform:scale(2,2) ;}
+}
+
+/* ---------------------------------------------------------------------------------- */
+
+#g{
+    border: solid 3px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: purple;
+
+    animation: 3s linear 0s infinite running BoxG;
+}
+
+@keyframes BoxG {
+    20%{background-color: red;}
+    40%{background-color: blue;}
+    60%{background-color: yellow;}
+    80%{background-color: lightgreen;}
+    1000%{background-color: blueviolet;}
+}

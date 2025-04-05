@@ -1,0 +1,103 @@
+body{
+    height: 500vh; /*long sccrool ko lagi*/
+}
+
+
+#box1{
+    border: 1px solid;
+    height: 200px;
+    width: 200px;
+    background-color: aqua;
+   
+
+   position: relative;
+   top : 150px;
+   left: 50px;
+    /* relative ma chai px ley move grni ho ani overlap grxxa */
+}
+
+#box2{
+    border: 1px solid;
+    height: 100px;
+    width: 100px;
+    background-color: lime;
+
+    position: static; /* default ho static vnya */
+}
+
+#box3{
+    border: 1px solid;
+    height: 100px;
+    width: 100px;
+    background-color: blueviolet;
+
+    position: relative;
+    top: 0px;
+}
+
+#box4{
+    border: 1px solid;
+    height: 100px;
+    width: 100px;
+    background-color:chocolate;
+
+    position: absolute;
+    top: 0px;
+}
+
+ /* same as relative BUT RELATIVE MA AFNO THAU KO RESPECT MA HIDXA VNE, 
+ ABSOLUTE MA CHAI WEBSITE KO TOP KO RESPECT MA MOCE GRXA*/
+
+ /* RELATIVE LAI 0PX TOP BATA MOVE GRYO VNE AFNAI THAU MA HUNXA 
+ BUT ABSOLUTE LAI GRYO VNE WEBSITE KO TOP MA PUGXA*/
+
+ #box5{
+    border: 1px solid;
+    height: 100px;
+    width: 100px;
+    background-color: rgb(255, 0, 247);
+
+    position: relative;
+    left: 100px;
+ }
+
+ #box6{
+    border: 1px solid;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(255, 0, 0);
+
+    position: absolute;
+    top: 25px;
+    left: 25px; 
+    /* 5 ko box move grda box 6 ni move hunxa cuz box6 is a child of box 5*/
+
+    /*absolute use grye pani website navyera box ko  respect ma move grxa 
+    kina ki it is child i.e. box5 ko div vitra box 6 banako xa ani tei lai refrence ligxa*/
+ }
+
+ #box7{
+    border: 1px solid;
+    height: 50px;
+    width: 50px;
+    background-color: darkolivegreen;
+
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    /*kunai pani thau ma fix basxxa*/
+ }
+
+ #box8{
+    border: 1px solid;
+    height: 50px;
+    width: 50px;
+    background-color:wheat;
+
+    position: sticky;
+    top:10px;
+    bottom: 10px;
+    left:300px;
+    /*same like fixed but halka diff*/
+ }
+

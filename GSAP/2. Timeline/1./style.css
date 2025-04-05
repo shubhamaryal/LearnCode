@@ -1,0 +1,17 @@
+#box1{
+    height: 300px;
+    width: 300px;
+    background-color: cyan;
+}
+
+#box2{
+    height: 300px;
+    width: 300px;
+    background-color: gray;
+}
+
+#box3{
+    height: 300px;
+    width: 300px;
+    background-color: limegreen;
+}

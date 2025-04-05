@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+body{
+    overflow-x: hidden; /* name long vyera right tira ni thiyo but tyo hatxa ani sab hernu mildaina right ma */
+}
+
+#page1{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+#page2{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(62, 170, 212);
+}
+
+#page3{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+#page2 h1{
+    font-size: 40vw;
+    text-transform: uppercase;
+    font-weight: 600;
+}
