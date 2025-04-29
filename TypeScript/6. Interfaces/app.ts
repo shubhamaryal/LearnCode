@@ -5,6 +5,8 @@ interface Userr {
   googleId?: string;
   // startTrial: () => string;
   // startTrial(): string;
+  getCoupon(couponName: string, value: number): number;
+  // here the value that it is getting is string & number and the return type is number
 }
 
 const shubhamm: Userr = {
@@ -14,6 +16,11 @@ const shubhamm: Userr = {
   // startTrial: () => {
   //   return "trial started";
   // },
+  getCoupon: (name: "shubham", off: 10) => {
+    return 10;
+  },
 };
 
 shubhamm.email = "s@gmail.com";
+
+export {};

@@ -47,3 +47,5 @@ let seatAllotment: "aisle" | "middle" | "window"
 
 seatAllotment = "aisle"
 // seatAllotment = "crew" // errro
+
+export {};
