@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSAP Controls</title>
+    <link href="./output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div
+      class="bg-black text-white w-full h-screen flex items-center justify-center p-10"
+    >
+      <p id="text" class="text-6xl text-center">
+        Break apart HTML text into characters, words, and/or lines for easy
+        animation.
+      </p>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <script>
+      // let split = new SplitType("#text");
+      let split = new SplitType("#text", {
+        types: "words",
+      });
+
+      gsap.from(split.words, {
+        y: 100,
+        autoAlpha: 0,
+
+        stagger: {
+          amount: 0.5,
+          from: "random",
+          repeat: -1,
+          yoyo: true,
+        },
+      });
+    </script>
+  </body>
+</html>
