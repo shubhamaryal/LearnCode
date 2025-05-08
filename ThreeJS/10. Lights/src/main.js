@@ -28,8 +28,20 @@ scene.add(ambient)
 
 // directional light
 let directional = new THREE.DirectionalLight("white", 1)
-directional.position.set(1,1,1)
+directional.position.set(2,1,1)
 scene.add(directional)
+
+const helper = new THREE.DirectionalLightHelper( directional, 2 );
+scene.add( helper );
+
+// point light 
+let point = new THREE.PointLight("white",1,10,2)
+point.position.set(1.6,-0.5,1)
+scene.add(point)
+
+const sphereSize = .2;
+const pointLightHelper = new THREE.PointLightHelper( point, sphereSize );
+scene.add( pointLightHelper );
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -60,80 +72,54 @@ scene.add(cube);
 
 const gui = new GUI();
 
-const cubeFolder = gui.addFolder("Cube");
-const materialFolder = gui.addFolder("Material");
+// Light GUI controls
+const lightsFolder = gui.addFolder("Lights");
 
-cubeFolder.add(cube.position, "x").min(-5).max(5).step(0.1).name("Position X");
-cubeFolder.add(cube.position, "y").min(-5).max(5).step(0.1).name("Position Y");
-cubeFolder.add(cube.position, "z").min(-5).max(5).step(0.1).name("Position Z");
-
-cubeFolder
-  .add(cube.rotation, "x")
-  .min(0)
-  .max(Math.PI * 2)
-  .step(0.01)
-  .name("Rotation X");
-cubeFolder
-  .add(cube.rotation, "y")
-  .min(0)
-  .max(Math.PI * 2)
-  .step(0.01)
-  .name("Rotation Y");
-cubeFolder
-  .add(cube.rotation, "z")
-  .min(0)
-  .max(Math.PI * 2)
-  .step(0.01)
-  .name("Rotation Z");
-
-cubeFolder.add(cube.scale, "x").min(0.1).max(3).step(0.1).name("Scale X");
-cubeFolder.add(cube.scale, "y").min(0.1).max(3).step(0.1).name("Scale Y");
-cubeFolder.add(cube.scale, "z").min(0.1).max(3).step(0.1).name("Scale Z");
-
-materialFolder
-  .add(material, "roughness")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Roughness");
-materialFolder
-  .add(material, "metalness")
-  .min(0)
-  .max(1)
-  .step(0.01)
-  .name("Metalness");
-
-const materialParams = {
-  color: "#" + material.color.getHexString(),
-};
-
-materialFolder.addColor(materialParams, "color").onChange((value) => {
-  material.color.set(value);
+// Ambient light controls
+const ambientFolder = lightsFolder.addFolder("Ambient Light");
+ambientFolder.add(ambient, "intensity").min(0).max(3).step(0.1).name("Intensity");
+const ambientColorParams = { color: "#ffffff" };
+ambientFolder.addColor(ambientColorParams, "color").onChange((value) => {
+  ambient.color.set(value);
 });
 
-const mapControls = {
-  useNormalMap: true,
-  useRoughnessMap: true,
-};
+// Directional light controls
+const directionalFolder = lightsFolder.addFolder("Directional Light");
+directionalFolder.add(directional, "intensity").min(0).max(3).step(0.1).name("Intensity");
+directionalFolder.add(directional.position, "x").min(-5).max(5).step(0.1).name("Position X");
+directionalFolder.add(directional.position, "y").min(-5).max(5).step(0.1).name("Position Y");
+directionalFolder.add(directional.position, "z").min(-5).max(5).step(0.1).name("Position Z");
+const directionalColorParams = { color: "#ffffff" };
+directionalFolder.addColor(directionalColorParams, "color").onChange((value) => {
+  directional.color.set(value);
+});
+const directionalHelperParams = { visible: true };
+directionalFolder.add(directionalHelperParams, "visible").name("Show Helper").onChange((value) => {
+  helper.visible = value;
+});
 
-materialFolder
-  .add(mapControls, "useNormalMap")
-  .name("Normal Map")
-  .onChange((value) => {
-    material.normalMap = value ? normal : null;
-    material.needsUpdate = true;
-  });
+// Point light controls
+const pointFolder = lightsFolder.addFolder("Point Light");
+pointFolder.add(point, "intensity").min(0).max(3).step(0.1).name("Intensity");
+pointFolder.add(point, "distance").min(0).max(20).step(0.5).name("Distance");
+pointFolder.add(point, "decay").min(0).max(5).step(0.1).name("Decay");
+pointFolder.add(point.position, "x").min(-5).max(5).step(0.1).name("Position X");
+pointFolder.add(point.position, "y").min(-5).max(5).step(0.1).name("Position Y");
+pointFolder.add(point.position, "z").min(-5).max(5).step(0.1).name("Position Z");
+const pointColorParams = { color: "#ffffff" };
+pointFolder.addColor(pointColorParams, "color").onChange((value) => {
+  point.color.set(value);
+});
+const pointHelperParams = { visible: true };
+pointFolder.add(pointHelperParams, "visible").name("Show Helper").onChange((value) => {
+  pointLightHelper.visible = value;
+});
 
-materialFolder
-  .add(mapControls, "useRoughnessMap")
-  .name("Roughness Map")
-  .onChange((value) => {
-    material.roughnessMap = value ? roughness : null;
-    material.needsUpdate = true;
-  });
-
-cubeFolder.open();
-materialFolder.open();
+// Open folders
+lightsFolder.open();
+ambientFolder.open();
+directionalFolder.open();
+pointFolder.open();
 
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -147,6 +133,10 @@ function animate() {
   requestAnimationFrame(animate);
 
   controls.update();
+  
+  // Update light helpers when positions change
+  helper.update();
+  pointLightHelper.update();
 
   renderer.render(scene, camera);
 }
