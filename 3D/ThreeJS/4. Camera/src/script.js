@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 // console.log(OrbitControls)
-
+ 
 /**
  * Cursor
  */
@@ -67,6 +67,7 @@ scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true; 
 // controls.target.y = 1
 // controls.update()
 
@@ -95,6 +96,10 @@ const tick = () => {
   // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
   // camera.position.y = cursor.y * 5;
   // camera.lookAt(mesh.position);
+
+
+  // Update controls
+  controls.update();
 
   // Render
   renderer.render(scene, camera);
