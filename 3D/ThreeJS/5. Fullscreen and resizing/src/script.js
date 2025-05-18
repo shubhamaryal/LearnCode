@@ -31,7 +31,7 @@ const sizes = {
 
 
 window.addEventListener("resize", () => {
-  console.log("the window has been resized");
+  // console.log("the window has been resized");
 
   // Update sizes
   sizes.width = window.innerWidth;
@@ -43,9 +43,46 @@ window.addEventListener("resize", () => {
 
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
 
+
+
+// window.addEventListener("dblclick", () => {
+//   // console.log("the window has been double clicked");
+
+//   if(!document.fullscreenElement) {
+//     canvas.requestFullscreen();
+//     // console.log("go fullscreen");
+//   }
+//   else {
+//     document.exitFullscreen();
+//     // console.log("leave fullscreen");
+//   }
+// })
+
+window.addEventListener("dblclick", () => {
+
+  const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
+
+  if(!fullscreenElement) {
+    if(canvas.requestFullscreen) {
+      canvas.requestFullscreen();
+    }
+    else if(canvas.webkitRequestFullscreen) {
+      canvas.requestFullscreen();
+    }
+  }
+  else {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+})
 
 
 /**
@@ -72,6 +109,10 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
+// renderer.setPixelRatio(window.devicePixelRatio)
+// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+
 
 /**
  * Animate
