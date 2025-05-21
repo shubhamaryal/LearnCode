@@ -28,16 +28,31 @@ const scene = new THREE.Scene()
 // positionsArray[7] = 1
 // positionsArray[8] = 0
 
-const positionsArray = new Float32Array([
-    0, 0, 0, // First vertex
-    0, 1, 0, // Second vertex
-    1, 0, 0 // Third vertex
-])
+// const positionsArray = new Float32Array([
+//     0, 0, 0, // First vertex
+//     0, 1, 0, // Second vertex
+//     1, 0, 0 // Third vertex
+// ])
 
-const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+// const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3) // The 3 means there are 3 values per vertex (x, y, z)
+
+// const geometry = new THREE.BufferGeometry()
+// geometry.setAttribute('position', positionsAttribute) // Three.js has built in shaders in the position attribute, so we are forced to use this name, but later we can use our own shaders
+
+
 
 const geometry = new THREE.BufferGeometry()
-geometry.setAttribute('position', positionsAttribute)
+
+const count = 2000
+const positionsArray = new Float32Array(count * 3 * 3 )
+
+for (let i= 0 ; i <count * 3 *3 ; i++ ){
+    positionsArray[i] = ( Math.random() - 0.5 ) * 4
+}
+
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3) 
+geometry.setAttribute('position', positionsAttribute) 
+
 
 
 
