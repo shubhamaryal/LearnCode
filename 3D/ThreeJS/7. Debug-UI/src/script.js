@@ -11,9 +11,32 @@ import GUI from 'lil-gui';
 /**
  * Debug
 */
-const gui = new GUI();
+const gui = new GUI({ closed : true , width : 400 });
+// gui.hide();
+// gui.close();
+
+const parameters = {
+    spin: () =>{
+        // console.log('spin')
+        // gsap.to(mesh.rotation, { duration: 1, y: 10})
+        // the above code will not work after the first click because it is already in the position of 10
+        gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + 10 })
+    }
+}
+
+gui.add(parameters, 'spin')
 
 
+
+window.addEventListener('keydown', () =>{
+    if(event.key === 'g'){
+        if(gui._hidden){
+            gui.show()
+        } else {
+            gui.hide()
+        }
+    }
+})
 
 
 
@@ -34,6 +57,12 @@ const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material)
 // mesh.visible = false
 scene.add(mesh)
+
+// console.log(material.color)
+
+
+
+
 
 
 
@@ -63,8 +92,6 @@ gui
 
 gui
     .addColor(material, 'color')
-
-
 
 
 
