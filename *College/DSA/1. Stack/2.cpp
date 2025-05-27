@@ -1,7 +1,7 @@
 /* 
     Lab 1 : Implementation of Stack using 
-        (i) ToS varying method 
-        (ii) ToS fixed method
+        (i) Top varying method 
+        (ii) Top fixed method
 */
 
 #define MAX 5
