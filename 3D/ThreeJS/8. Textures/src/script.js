@@ -44,8 +44,10 @@ const textureLoader = new THREE.TextureLoader(loadingManager)
 // const colorTexture = textureLoader.load('/textures/checkerboard-1024x1024.png')
 // The pattern of the checkerboard is called Moiré pattern.
 
-const colorTexture = textureLoader.load('/textures/checkerboard-8x8.png')
+// const colorTexture = textureLoader.load('/textures/checkerboard-8x8.png')
 // This is small texture so it appears blurry on the screen. As the image is small, it is stretched to fill the screen, which causes the blurriness.
+
+const colorTexture = textureLoader.load('/textures/minecraft.png')
 
 const alphaTexture = textureLoader.load('/textures/door/alpha.jpg')
 const heightTexture = textureLoader.load('/textures/door/height.jpg')
@@ -68,8 +70,9 @@ const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
 // colorTexture.center.x = 0.5
 // colorTexture.center.y = 0.5
 
-// colorTexture.minFilter = THREE.NearestFilter
-// colorTexture.magFilter = THREE.NearestFilter
+colorTexture.generateMipmaps = false
+colorTexture.minFilter = THREE.NearestFilter
+colorTexture.magFilter = THREE.NearestFilter
 
 
 
