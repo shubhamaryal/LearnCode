@@ -18,7 +18,14 @@ const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
 const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
 const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
 
-const matcapTexture = textureLoader.load('/textures/matcaps/1.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/1.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/2.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/3.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/4.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/5.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/6.png')
+// const matcapTexture = textureLoader.load('/textures/matcaps/7.png')
+const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
 const gradientTexture = textureLoader.load('/textures/gradients/3.jpg')
 
 
@@ -45,17 +52,40 @@ const scene = new THREE.Scene()
 /**
  * Objects
  */
-const material = new THREE.MeshBasicMaterial()
+// const material = new THREE.MeshBasicMaterial()
 // const material = new THREE.MeshBasicMaterial({
 //     map: doorColorTexture,
 // })
+// const material = new THREE.MeshBasicMaterial({color: '#ff0000'})
 // material.map = doorColorTexture;
+// material.color = 'red'
+// material.color.set(0xfff000)
+// material.color = new THREE.Color('#ff00ff')
+// console.log(material.color)
+// material.wireframe = true
+
+// material.transparent = true
+// material.opacity = 0.5
+// material.alphaMap = doorAlphaTexture
+// material.side = THREE.DoubleSide
+
+// const material = new THREE.MeshNormalMaterial()
+// material.flatShading = true
+
+// const material = new THREE.MeshMatcapMaterial()
+// material.matcap = matcapTexture
+
+// const material = new THREE.MeshDepthMaterial()
+
+const material = new THREE.MeshLambertMaterial()
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 16, 16),
     material
 )
 sphere.position.x = -1.5
+
+// console.log(sphere.geometry.attributes)
 
 const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
@@ -71,8 +101,17 @@ torus.position.x = 1.5
 scene.add(sphere, plane, torus)
 
 
+/**
+ * Lights
+ */
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
 
-
+const pointLight = new THREE.PointLight(0xffffff, 0.5)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
 
 
 
