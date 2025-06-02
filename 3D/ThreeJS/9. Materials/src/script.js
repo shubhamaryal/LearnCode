@@ -19,6 +19,8 @@ const gui = new GUI();
  */
 const textureLoader = new THREE.TextureLoader()
 
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+
 const doorColorTexture = textureLoader.load('/textures/door/color.jpg')
 const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
 const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
@@ -43,7 +45,24 @@ gradientTexture.generateMipmaps = false
 
 
 
+// const environmentMapTexture = cubeTextureLoader.load([
+//     '/textures/environmentMaps/0/px.jpg',
+//     '/textures/environmentMaps/0/nx.jpg',
+//     '/textures/environmentMaps/0/py.jpg',
+//     '/textures/environmentMaps/0/ny.jpg',
+//     '/textures/environmentMaps/0/pz.jpg',
+//     '/textures/environmentMaps/0/nz.jpg'
+// ])
+const environmentMapTexture = cubeTextureLoader.load([
+    '/textures/environmentMaps/1/px.jpg',
+    '/textures/environmentMaps/1/nx.jpg',
+    '/textures/environmentMaps/1/py.jpg',
+    '/textures/environmentMaps/1/ny.jpg',
+    '/textures/environmentMaps/1/pz.jpg',
+    '/textures/environmentMaps/1/nz.jpg'
+])
 
+ 
 
 
 /**
@@ -97,23 +116,43 @@ const scene = new THREE.Scene()
 // const material = new THREE.MeshToonMaterial()
 // material.gradientMap = gradientTexture
 
-const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.6
-material.roughness = 0.6
+// const material = new THREE.MeshStandardMaterial()
+// // material.metalness = 0.6
+// // material.roughness = 0.6
 
-material.map = doorColorTexture
-material.aoMap = doorAmbientOcclusionTexture
-material.aoMapIntensity = 1
-material.displacementMap = doorHeightTexture
+// material.map = doorColorTexture
+// material.aoMap = doorAmbientOcclusionTexture
+// material.aoMapIntensity = 1
+// material.displacementMap = doorHeightTexture
+// // We dont have enough vertices in the geometry so the plane didn't change, there are only 2 triangles in it, we can ignore sphere and torus 
+// material.displacementScale = 0.06
+// //After using the displacementMap with proper scale and vertices, we can see that the door is not flat and it is a bit bumpy, it is because the displacementMap create a relief on the suface of the plane, else it was flat before
+// material.metalnessMap = doorMetalnessTexture
+// material.roughnessMap = doorRoughnessTexture
+// material.normalMap = doorNormalTexture
+// material.normalScale.set(0.5, 0.5)
+// material.transparent = true
+// material.alphaMap = doorAlphaTexture
+
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.7
+material.roughness = 0.2
+material.envMap = environmentMapTexture
+
 
 // material.wireframe = true
 
 gui.add(material, 'metalness').min(0).max(1).step(0.0001)
 gui.add(material, 'roughness').min(0).max(1).step(0.0001)
 gui.add(material, 'aoMapIntensity').min(0).max(10).step(0.0001)
+gui.add(material, 'displacementScale').min(0).max(1).step(0.0001)
 
+// const sphere = new THREE.Mesh(
+//     new THREE.SphereGeometry(0.5, 16, 16),
+//     material
+// )
 const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 16, 16),
+    new THREE.SphereGeometry(0.5, 64, 64),
     material
 )
 sphere.position.x = -1.5
@@ -125,8 +164,12 @@ sphere.geometry.setAttribute(
     new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2
 ))
 
+// const plane = new THREE.Mesh(
+//     new THREE.PlaneGeometry(1, 1),
+//     material
+// )
 const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(1, 1, 100, 100),
     material
 )
 
@@ -136,8 +179,12 @@ plane.geometry.setAttribute(
     new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2
 ))
 
+// const torus = new THREE.Mesh(
+//     new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+//     material
+// )
 const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+    new THREE.TorusGeometry(0.3, 0.2, 64, 128),
     material
 )
 torus.position.x = 1.5
