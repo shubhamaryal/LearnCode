@@ -19,6 +19,7 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const particleTexture = textureLoader.load('/textures/particles/2.png')
 
 /**
  * Particles
@@ -31,6 +32,8 @@ const count = 5000
 const positions =  new Float32Array(count * 3) 
 
 for (let i = 0; i < count * 3; i++){
+    // positions[i] = Math.random()
+    // if we use Math.random() it will be in the range of 0 to 1 so the particles will be in a geometry will be from 0 to 1 only so it is displayed in the right side, so we subtract from 0.5 and multiply it by 10 to spread it out
     positions[i] = (Math.random() - 0.5) * 10
 }
 
@@ -41,10 +44,13 @@ particlesGeometry.setAttribute(
 
 // Materials
 const particlesMaterial = new THREE.PointsMaterial({
-    // size: 0.02,\
+    // size: 0.02,
     size: 0.1,
     sizeAttenuation: true,
+    color: "red",
 })
+// particlesMaterial.color = new THREE.Color('#ff88cc')
+particlesMaterial.map = particleTexture
 // particlesMaterial.size = 0.02
 // particlesMaterial.sizeAttenuation = true
 
