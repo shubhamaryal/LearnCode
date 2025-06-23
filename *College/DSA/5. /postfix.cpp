@@ -10,7 +10,6 @@ int evaluationFunction(string expression) {
 
     for(int i=0; i< expression.length(); i++) {
         char c = expression[i];
-
         
         if(isdigit(c)) {
             s.push(c - '0'); 
@@ -34,8 +33,6 @@ int evaluationFunction(string expression) {
                     break;
             }
         }
-
-
     }
     
     return s.top();
