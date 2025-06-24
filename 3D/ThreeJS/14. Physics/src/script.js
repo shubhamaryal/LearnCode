@@ -26,9 +26,9 @@ gui.add(debugObject, 'createSphere')
 
 debugObject.createBox = () => {
     createBox( 
-        Math.random() * 0.5 ,
-        Math.random() * 0.5,
-        Math.random() * 0.5, 
+        Math.random() ,
+        Math.random() ,
+        Math.random() , 
         {
             x: (Math.random() - 0.5) * 3,
             y: 3,
@@ -46,6 +46,16 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+
+/**
+ * Scene
+ */
+const hitSound = new Audio('/sounds/hit.mp3')
+
+const playHitSound = () => {
+    hitSound.currentTime = 0
+    hitSound.play()
+}
 
 /**
  * Textures
@@ -68,6 +78,7 @@ const environmentMapTexture = cubeTextureLoader.load([
 // World
 const world = new CANNON.World()
 world.broadphase = new CANNON.SAPBroadphase(world)
+world.allowSleep = true
 world.gravity.set(0, -9.82, 0) 
 
 
@@ -302,6 +313,7 @@ const createBox = (width, height, depth, position) => {
         material: defaultMaterial
     })
     body.position.copy(position)
+    body.addEventListener('collide', playHitSound)
     world.addBody(body)
 
     // Save in objects to update
