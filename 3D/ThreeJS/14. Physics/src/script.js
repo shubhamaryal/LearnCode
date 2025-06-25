@@ -2,7 +2,8 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
-import CANNON from 'cannon'
+// import CANNON from 'cannon'
+import * as CANNON from 'cannon-es'
 
 // console.log(CANNON)
 
@@ -38,6 +39,21 @@ debugObject.createBox = () => {
 }
 gui.add(debugObject, 'createBox')
 
+debugObject.reset = () => {
+    // console.log('reset')
+    for(const object of objectsToUpdate) {
+        // Remove body
+        object.body.removeEventListener('collide', playHitSound)
+        world.removeBody(object.body)
+
+        // Remove mesh
+        scene.remove(object.mesh)
+
+        objectsToUpdate.splice(0, objectsToUpdate.length)
+    }
+}
+gui.add(debugObject, 'reset')
+
 /**
  * Base
  */
@@ -52,9 +68,22 @@ const scene = new THREE.Scene()
  */
 const hitSound = new Audio('/sounds/hit.mp3')
 
-const playHitSound = () => {
-    hitSound.currentTime = 0
-    hitSound.play()
+const playHitSound = (collision) => {
+    // console.log(collision)
+    // console.log(collision.contact.getImpactVelocityAlongNormal())
+    const impactStrength = collision.contact.getImpactVelocityAlongNormal()
+
+    if(impactStrength > 1.5) {
+        hitSound.volume = Math.random()
+        hitSound.currentTime = 0
+        hitSound.play()
+    }
+    // We can config the volume according to the impact strength
+    // If there is a strong impact, we can play the sound louder sound and if there is a weak impact, we can play the sound softer 
+    // Eg: If impact is more than 3 play max volume, if impact is less than 1 play half volume
+
+    // hitSound.currentTime = 0
+    // hitSound.play()
 }
 
 /**
@@ -268,6 +297,7 @@ const createSphere = (radius, position) => {
         material: defaultMaterial
     })
     body.position.copy(position)
+    body.addEventListener('collide', playHitSound)
     world.addBody(body)
 
     // Save in objects to update
