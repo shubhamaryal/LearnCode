@@ -3,6 +3,9 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+// console.log(GLTFLoader)
+
 /**
  * Base
  */
@@ -14,6 +17,55 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+
+/**
+ * Models
+ */
+const gltfLoader = new GLTFLoader()
+// console.log(gltfLoader)
+
+// gltfLoader.load(
+//     // '/models/Duck/glTF/Duck.gltf', // Default 
+//     // '/models/Duck/glTF-Binary/Duck.glb', // Binary 
+//     '/models/Duck/glTF-Embedded/Duck.gltf', // Embedded
+//     (gltf) => {
+//         // console.log('success')
+//         // console.log(gltf)
+//         scene.add(gltf.scene.children[0])
+//     },
+//     // () => {console.log('progress')},
+//     // () => {console.log('error')},
+// )
+
+// gltfLoader.load(
+//     '/models/FlightHelmet/glTF/FlightHelmet.gltf',
+//     (gltf) => {
+//         console.log(gltf.scene)
+//         // scene.add(gltf.scene.children[0])
+
+//         // for (const child of gltf.scene.children) {
+//         //     scene.add(child)
+//         // }
+
+//         // while(gltf.scene.children.length){
+//         //     scene.add(gltf.scene.children[0])
+//         // }
+
+//         // const children = [...gltf.scene.children]
+//         // for (const child of children) {
+//         //     scene.add(child)
+//         // }
+
+//         scene.add(gltf.scene)
+//     }
+// )
+
+gltfLoader.load(
+    '/models/Duck/glTF-Draco/Duck.gltf',
+    (gltf) => {
+        scene.add(gltf.scene)
+    }
+)
 
 /**
  * Floor
