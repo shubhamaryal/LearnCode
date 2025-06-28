@@ -6,6 +6,9 @@ import * as dat from 'lil-gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 // console.log(GLTFLoader)
 
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+// console.log(DRACOLoader)
+
 /**
  * Base
  */
@@ -21,7 +24,11 @@ const scene = new THREE.Scene()
 /**
  * Models
  */
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath('/draco/')
+
 const gltfLoader = new GLTFLoader()
+gltfLoader.setDRACOLoader(dracoLoader)
 // console.log(gltfLoader)
 
 // gltfLoader.load(
@@ -60,9 +67,26 @@ const gltfLoader = new GLTFLoader()
 //     }
 // )
 
+// gltfLoader.load(
+//     '/models/Duck/glTF-Draco/Duck.gltf',
+//     (gltf) => {
+//         scene.add(gltf.scene)
+//     }
+// )
+
+let mixer = null
+
 gltfLoader.load(
-    '/models/Duck/glTF-Draco/Duck.gltf',
+    '/models/Fox/glTF/Fox.gltf',
     (gltf) => {
+        // console.log(gltf)
+        // constmixer = new THREE.AnimationMixer(gltf.scene)
+        mixer = new THREE.AnimationMixer(gltf.scene)
+        const action = mixer.clipAction(gltf.animations[2])
+        action.play()
+        // console.log(action)
+
+        gltf.scene.scale.set(0.025, 0.025, 0.025)
         scene.add(gltf.scene)
     }
 )
@@ -157,6 +181,12 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - previousTime
     previousTime = elapsedTime
+
+    // Update mixer
+    // mixer.update(deltaTime)
+    if (mixer !== null) {
+        mixer.update(deltaTime)
+    }
 
     // Update controls
     controls.update()
