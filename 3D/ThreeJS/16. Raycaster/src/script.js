@@ -2,6 +2,9 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+
+// console.log(GLTFLoader)
 
 /**
  * Base
@@ -153,6 +156,38 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
+ * Model
+ */
+const gltfLoader = new GLTFLoader()
+
+let model = null
+gltfLoader.load(
+    'models/Duck/glTF-Binary/Duck.glb',
+    (gltf) => {
+        model = gltf.scene
+        // console.log('Model loaded')
+        // console.log(gltf)
+        // console.log(gltf.scene)
+        // gltf.scene.position.y = -1.2
+        model.position.y = -1.2
+        // scene.add(gltf.scene)
+        scene.add(model)
+    }
+)
+
+/**
+ * Lights
+ */
+// Ambient light
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.3)
+scene.add(ambientLight)
+
+// Directional light
+const directionalLight = new THREE.DirectionalLight('#ffffff', 0.7)
+directionalLight.position.set(1, 2, 3)
+scene.add(directionalLight)
+
+/**
  * Animate
  */
 const clock = new THREE.Clock()
@@ -209,14 +244,14 @@ const tick = () =>
     const objectsToTest = [object1, object2, object3]
     const intersects = raycaster.intersectObjects(objectsToTest)
 
-    for (const object of objectsToTest) {
-        object.material.color.set('#ff0000')
-    }
+    // for (const object of objectsToTest) {
+    //     object.material.color.set('#ff0000')
+    // }
 
-    for (const intersect of intersects) {
-        intersect.object.material.color.set('#0000ff')
+    // for (const intersect of intersects) {
+    //     intersect.object.material.color.set('#0000ff')
 
-    }
+    // }
 
     if(intersects.length) {
         if (!currentIntersect) {
@@ -231,6 +266,23 @@ const tick = () =>
     }
 
 
+    // Test intersect with model
+    // const modelIntersects = raycaster.intersectObject(gltf.scene)
+    // const modelIntersects = raycaster.intersectObject(model)
+    // console.log(modelIntersects)
+
+    if(model){
+        const modelIntersects = raycaster.intersectObject(model) 
+        // const modelIntersects = raycaster.intersectObject(model, false)
+        // console.log(modelIntersects)
+
+        if(modelIntersects.length){
+            model.scale.set(1.5, 1.5, 1.5)
+        }
+        else {
+            model.scale.set(1, 1, 1)
+        }
+    }
     
     // Update controls
     controls.update()
