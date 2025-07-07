@@ -2,22 +2,50 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import Products from "./pages/Products";
+import RootLayout from "./layout/RootLayout";
+import ContactLayout from "./layout/ContactLayout";
+import ContactInfo from "./components/ContactInfo";
+import ContactForm from "./components/ContactForm";
 
 const App = () => {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        {/* <Route path="contact" element={<Contact />} /> */}
+        <Route path="contact" element={<ContactLayout />}>
+          <Route path="info" element={<ContactInfo />} />
+          <Route path="form" element={<ContactForm />} />
+        </Route>
+        <Route path="products" element={<Products />} />
+      </Route>
+    )
+  );
+
   return (
-    <div>
-      <Navbar />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products" element={<Products />} />
-        </Routes>
-      </div>
-    </div>
+    // <div>
+    //   <Navbar />
+    //   <div className="container">
+    //     <Routes>
+    //       <Route path="/" element={<Home />} />
+    //       <Route path="/about" element={<About />} />
+    //       <Route path="/contact" element={<Contact />} />
+    //       <Route path="/products" element={<Products />} />
+    //     </Routes>
+    //   </div>
+    // </div>
+
+    <RouterProvider router={router} />
   );
 };
 

@@ -1,7 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import "../index.css";
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="navbar">
       <img
@@ -14,7 +18,7 @@ const Navbar = () => {
             <li>Product</li>
             <li>About</li>
             <li>Contact</li> */}
-        <Link to="/">
+        {/* <Link to="/">
           <li>Home</li>
         </Link>
         <Link to="/products">
@@ -25,9 +29,24 @@ const Navbar = () => {
         </Link>
         <Link to="/contact">
           <li>Contact</li>
-        </Link>
+        </Link> */}
+
+        <NavLink to="/">
+          <li>Home</li>
+        </NavLink>
+        <NavLink to="/products">
+          <li>Products</li>
+        </NavLink>
+        <NavLink to="/about">
+          <li>About</li>
+        </NavLink>
+        <NavLink to="/contact">
+          <li>Contact</li>
+        </NavLink>
       </ul>
-      <button>Get started</button>
+
+      {/* <button onClick={()=> navigate('/about')}>Get started</button> */}
+      <button onClick={()=> navigate('/contact', {replace : true})}>Get started</button>
     </div>
   );
 };
