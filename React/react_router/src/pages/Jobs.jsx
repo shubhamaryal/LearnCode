@@ -20,5 +20,8 @@ export default Jobs;
 
 export const JobsLoader = async () => {
   const res = await fetch("http://localhost:5001/jobs");
+  if (!res.ok) {
+    throw Error("Couldn't find job list.");
+  }
   return res.json();
 };
