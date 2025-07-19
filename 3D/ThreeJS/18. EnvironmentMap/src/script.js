@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
-import {RGBELoader} from 'three/examples/jsm/loaders/RGBELoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 
 /**
  * Loaders
@@ -39,7 +39,7 @@ gui.add(scene.backgroundRotation, 'y').min(0).max((Math.PI*2)).step(0.001).name(
 gui.add(scene.environmentRotation, 'y').min(0).max((Math.PI*2)).step(0.001).name('environmentRotationY')
 
 
-// // LDR (low dynamic range) texture
+// LDR (low dynamic range) texture
 // const environmentMap = cubeTextureLoader.load([
 //     'environmentMaps/0/px.png',
 //     'environmentMaps/0/nx.png',
@@ -51,6 +51,15 @@ gui.add(scene.environmentRotation, 'y').min(0).max((Math.PI*2)).step(0.001).name
 // scene.environment = environmentMap
 // scene.background = environmentMap
 
+// HDR (RGBE) equirectangular 
+rgbeLoader.load('/environmentMaps/0/2k.hdr', (environmentMap) => {
+    // console.log(environmentMap)
+
+    environmentMap.mapping = THREE.EquirectangularReflectionMapping
+
+    scene.background = environmentMap
+    scene.environment = environmentMap
+})
 
 // 
 
