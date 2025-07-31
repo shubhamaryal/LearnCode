@@ -25,13 +25,13 @@ const scene = new THREE.Scene()
 /**
  * Update all materials
  */
-const updateAllMaterials = () =>
-{
-    scene.traverse((child) =>
-    {
-        if(child.isMesh)
-        {
-            // Activate shadow here
+const updateAllMaterials = () => {
+    scene.traverse((child) => {
+        if(child.isMesh && child.material.isMeshStandardMaterial) {
+            child.material.envMapIntensity = globalThis.envMapIntensity
+
+            child.castShadow = true
+            child.receiveShadow = true
         }
     })
 }
@@ -60,7 +60,8 @@ rgbeLoader.load('/environmentMaps/0/2k.hdr', (environmentMap) =>
  * Directional lights
  */
 const directionalLight = new THREE.DirectionalLight('#ffffff', 1)
-directionalLight.position.set(3, 7, 6)
+// directionalLight.position.set(3, 7, 6)
+directionalLight.position.set(-4, 6.5, 2.5)
 scene.add(directionalLight)
 
 gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
@@ -70,19 +71,21 @@ gui.add(directionalLight.position, 'z').min(-10).max(10).step(0.001).name('light
 
 // Shadows 
 directionalLight.castShadow = true
+directionalLight.shadow.camera.far = 15
+// directionalLight.shadow.mapSize.set(1024, 1024)
+// directionalLight.shadow.mapSize.set(4096, 4096)
+directionalLight.shadow.mapSize.set(512, 512)
+// directionalLight.shadow.mapSize.set(256, 256)
 gui.add(directionalLight, 'castShadow')
 
-// Helper 
-const directionalLightHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
-scene.add(directionalLightHelper)
+// // Helper 
+// const directionalLightHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
+// scene.add(directionalLightHelper)
 
 // Target 
 directionalLight.target.position.set(0, 4, 0)
 // scene.add(directionalLight.target)
 directionalLight.target.updateWorldMatrix()
-
-
-
 
 /**
  * Models
