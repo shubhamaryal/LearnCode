@@ -1,207 +1,375 @@
-import './style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+// import test from './test.js'
+// console.log(test)
 
-/**
- * Loaders
- */
-const gltfLoader = new GLTFLoader()
-const textureLoader = new THREE.TextureLoader()
-const cubeTextureLoader = new THREE.CubeTextureLoader()
 
-/**
- * Base
- */
-// Debug
-const gui = new dat.GUI()
-const debugObject = {}
+// import xyz from './test.js'
+// console.log(xyz)
 
-// Canvas
-const canvas = document.querySelector('canvas.webgl')
 
-// Scene
-const scene = new THREE.Scene()
+// import test from "./test";
+// test()
 
-/**
- * Update all materials
- */
-const updateAllMaterials = () =>
-{
-    scene.traverse((child) =>
-    {
-        if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
-        {
-            // child.material.envMap = environmentMap
-            child.material.envMapIntensity = debugObject.envMapIntensity
-            child.material.needsUpdate = true
-            child.castShadow = true
-            child.receiveShadow = true
-        }
-    })
-}
 
-/**
- * Environment map
- */
-const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMap/px.jpg',
-    '/textures/environmentMap/nx.jpg',
-    '/textures/environmentMap/py.jpg',
-    '/textures/environmentMap/ny.jpg',
-    '/textures/environmentMap/pz.jpg',
-    '/textures/environmentMap/nz.jpg'
-])
+// import test from "./test";
+// console.log(test.hello)
 
-environmentMap.encoding = THREE.sRGBEncoding
 
-// scene.background = environmentMap
-scene.environment = environmentMap
+// import something from "./test";
+// console.log(something.hello)
 
-debugObject.envMapIntensity = 0.4
-gui.add(debugObject, 'envMapIntensity').min(0).max(4).step(0.001).onChange(updateAllMaterials)
 
-/**
- * Models
- */
-let foxMixer = null
+// import { oneThing, anotherThing } from "./test";
+// console.log(oneThing)
+// anotherThing()
 
-gltfLoader.load(
-    '/models/Fox/glTF/Fox.gltf',
-    (gltf) =>
-    {
-        // Model
-        gltf.scene.scale.set(0.02, 0.02, 0.02)
-        scene.add(gltf.scene)
 
-        // Animation
-        foxMixer = new THREE.AnimationMixer(gltf.scene)
-        const foxAction = foxMixer.clipAction(gltf.animations[0])
-        foxAction.play()
+// ----------
 
-        // Update materials
-        updateAllMaterials()
-    }
-)
+// import { SphereGeometry } from 'three'
+// console.log(SphereGeometry)
 
-/**
- * Floor
- */
-const floorColorTexture = textureLoader.load('textures/dirt/color.jpg')
-floorColorTexture.encoding = THREE.sRGBEncoding
-floorColorTexture.repeat.set(1.5, 1.5)
-floorColorTexture.wrapS = THREE.RepeatWrapping
-floorColorTexture.wrapT = THREE.RepeatWrapping
 
-const floorNormalTexture = textureLoader.load('textures/dirt/normal.jpg')
-floorNormalTexture.repeat.set(1.5, 1.5)
-floorNormalTexture.wrapS = THREE.RepeatWrapping
-floorNormalTexture.wrapT = THREE.RepeatWrapping
+// ----------
 
-const floorGeometry = new THREE.CircleGeometry(5, 64)
-const floorMaterial = new THREE.MeshStandardMaterial({
-    map: floorColorTexture,
-    normalMap: floorNormalTexture
-})
-const floor = new THREE.Mesh(floorGeometry, floorMaterial)
-floor.rotation.x = - Math.PI * 0.5
-scene.add(floor)
+// class HelloClass {}
 
-/**
- * Lights
- */
-const directionalLight = new THREE.DirectionalLight('#ffffff', 4)
-directionalLight.castShadow = true
-directionalLight.shadow.camera.far = 15
-directionalLight.shadow.mapSize.set(1024, 1024)
-directionalLight.shadow.normalBias = 0.05
-directionalLight.position.set(3.5, 2, - 1.25)
-scene.add(directionalLight)
+// class Robot {}
+// const robot = new Robot()
+// console.log(robot)
 
-gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
-gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001).name('lightX')
-gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001).name('lightY')
-gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001).name('lightZ')
+// const scene = new THREE.Scene()
+// const image = new Image() 
+// const audioContext = AudioContext()
 
-/**
- * Sizes
- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+// class Robot {
+//     sayHI() {
+//         console.log('hello')
+//     }
+// }
+// const wallE = new Robot()
+// const ultron = new Robot()
+// const astroBoy = new Robot()
+// ultron.sayHI()
+// astroBoy.sayHI()
 
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+// class Robot {
+//     constructor(name) {
+//         // console.log(name)
+//         // console.log('Thank you creator')
+//         // this.name = name
+//         // this.robotName = name
+//         this.name = name
+//         // console.log(`Im ${name}, Thank you creator`)
+//         console.log(`Im ${this.name}, Thank you creator`)
+//     }
+//     // sayHI(name) {
+//     //     console.log(`Hello, im ${name}`)
+//     // }
+//     sayHI() {
+//         console.log(`Hello, im ${this.name}`)
+//     }
+// }
+// const wallE = new Robot('Wall-E')
+// const ultron = new Robot('Ultron')
+// const astroBoy = new Robot('AstroBoy')
+// // wallE.sayHI('Wall-E')
+// // ultron.sayHI('Ultron')
+// wallE.sayHI()
+// ultron.sayHI()
+// console.log(wallE.name)
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+// class Robot {
+//     constructor(name, legs) {
+//         this.name = name
+//         this.legs = legs
+//         console.log(`Im ${this.name}, Thank you creator`)
+//         this.sayHI()
+//     }
+//     sayHI() {
+//         console.log(`Hello, im ${this.name}`)
+//     }
+// }
+// const wallE = new Robot('Wall-E', 0)
+// const ultron = new Robot('Ultron', 2)
+// const astroBoy = new Robot('AstroBoy', 2)
+// console.log(wallE.legs)
+// if(ultron.legs >= 2) {
+//     console.log(`yes ${this.name} has 2 more more than 2 legs`)
+// }
 
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+// class Robot {
+//     constructor(name, legs) {
+//         this.name = name
+//         this.legs = legs
+//         console.log(`Im ${this.name}, Thank you creator`)
+//         this.sayHI()
+//     }
+//     sayHI() {
+//         console.log(`Hello, im ${this.name}`)
+//     }
+// }
+// class FlyingRobot extends Robot {
+//     sayHI () {
+//         console.log(`Hello my name is ${this.name}, im a flying robot`)
+//     }
+//     takeOff () {
+//         console.log(`have a good flight ${this.name}`)
+//     }
+//     land () {
+//         console.log(`Welcome back ${this.name}`)
+//     }
+// }
+// const wallE = new Robot('Wall-E', 0)
+// const ultron = new Robot('Ultron', 2)
+// // const astroBoy = new Robot('AstroBoy', 2)
+// const astroBoy = new FlyingRobot('AstroBoy', 2)
+// astroBoy.takeOff()
+// // ultron.takeOff()
 
-/**
- * Camera
- */
-// Base camera
-const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(6, 4, 8)
-scene.add(camera)
+// class Robot {
+//     constructor(name, legs) {
+//         this.name = name
+//         this.legs = legs
+//         console.log(`Im ${this.name}, Thank you creator`)
+//         // this.sayHI()
+//     }
+//     sayHI() {
+//         console.log(`Hello, im ${this.name}`)
+//     }
+// }
+// class FlyingRobot extends Robot {
+//     constructor (name, legs) {
+//         super(name, legs)
+//         super.sayHI()
+//     }
+//     sayHI () {
+//         console.log(`Hello my name is ${this.name}, im a flying robot`)
+//     }
+//     takeOff () {
+//         console.log(`have a good flight ${this.name}`)
+//     }
+//     land () {
+//         console.log(`Welcome back ${this.name}`)
+//     }
+// }
+// const wallE = new Robot('Wall-E', 0)
+// const ultron = new Robot('Ultron', 2)
+// const astroBoy = new FlyingRobot('AstroBoy', 2)
+// astroBoy.takeOff()
 
-// Controls
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
 
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true
-})
-renderer.physicallyCorrectLights = true
-renderer.outputEncoding = THREE.sRGBEncoding
-renderer.toneMapping = THREE.CineonToneMapping
-renderer.toneMappingExposure = 1.75
-renderer.shadowMap.enabled = true
-renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.setClearColor('#211d20')
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// ----------
 
-/**
- * Animate
- */
-const clock = new THREE.Clock()
-let previousTime = 0
+// import Robot from './Robot.js'
+// import FlyingRobot from './FlyingRobot.js'
 
-const tick = () =>
-{
-    const elapsedTime = clock.getElapsedTime()
-    const deltaTime = elapsedTime - previousTime
-    previousTime = elapsedTime
+// ----------
 
-    // Update controls
-    controls.update()
 
-    // Fox animation
-    if(foxMixer)
-    {
-        foxMixer.update(deltaTime)
-    }
+// import './style.css'
+// import * as THREE from 'three'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import * as dat from 'lil-gui'
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
-    // Render
-    renderer.render(scene, camera)
+// /**
+//  * Loaders
+//  */
+// const gltfLoader = new GLTFLoader()
+// const textureLoader = new THREE.TextureLoader()
+// const cubeTextureLoader = new THREE.CubeTextureLoader()
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-}
+// /**
+//  * Base
+//  */
+// // Debug
+// const gui = new dat.GUI()
+// const debugObject = {}
 
-tick()
+// // Canvas
+// const canvas = document.querySelector('canvas.webgl')
+
+// // Scene
+// const scene = new THREE.Scene()
+
+// /**
+//  * Update all materials
+//  */
+// const updateAllMaterials = () =>
+// {
+//     scene.traverse((child) =>
+//     {
+//         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+//         {
+//             // child.material.envMap = environmentMap
+//             child.material.envMapIntensity = debugObject.envMapIntensity
+//             child.material.needsUpdate = true
+//             child.castShadow = true
+//             child.receiveShadow = true
+//         }
+//     })
+// }
+
+// /**
+//  * Environment map
+//  */
+// const environmentMap = cubeTextureLoader.load([
+//     '/textures/environmentMap/px.jpg',
+//     '/textures/environmentMap/nx.jpg',
+//     '/textures/environmentMap/py.jpg',
+//     '/textures/environmentMap/ny.jpg',
+//     '/textures/environmentMap/pz.jpg',
+//     '/textures/environmentMap/nz.jpg'
+// ])
+
+// environmentMap.encoding = THREE.sRGBEncoding
+
+// // scene.background = environmentMap
+// scene.environment = environmentMap
+
+// debugObject.envMapIntensity = 0.4
+// gui.add(debugObject, 'envMapIntensity').min(0).max(4).step(0.001).onChange(updateAllMaterials)
+
+// /**
+//  * Models
+//  */
+// let foxMixer = null
+
+// gltfLoader.load(
+//     '/models/Fox/glTF/Fox.gltf',
+//     (gltf) =>
+//     {
+//         // Model
+//         gltf.scene.scale.set(0.02, 0.02, 0.02)
+//         scene.add(gltf.scene)
+
+//         // Animation
+//         foxMixer = new THREE.AnimationMixer(gltf.scene)
+//         const foxAction = foxMixer.clipAction(gltf.animations[0])
+//         foxAction.play()
+
+//         // Update materials
+//         updateAllMaterials()
+//     }
+// )
+
+// /**
+//  * Floor
+//  */
+// const floorColorTexture = textureLoader.load('textures/dirt/color.jpg')
+// floorColorTexture.encoding = THREE.sRGBEncoding
+// floorColorTexture.repeat.set(1.5, 1.5)
+// floorColorTexture.wrapS = THREE.RepeatWrapping
+// floorColorTexture.wrapT = THREE.RepeatWrapping
+
+// const floorNormalTexture = textureLoader.load('textures/dirt/normal.jpg')
+// floorNormalTexture.repeat.set(1.5, 1.5)
+// floorNormalTexture.wrapS = THREE.RepeatWrapping
+// floorNormalTexture.wrapT = THREE.RepeatWrapping
+
+// const floorGeometry = new THREE.CircleGeometry(5, 64)
+// const floorMaterial = new THREE.MeshStandardMaterial({
+//     map: floorColorTexture,
+//     normalMap: floorNormalTexture
+// })
+// const floor = new THREE.Mesh(floorGeometry, floorMaterial)
+// floor.rotation.x = - Math.PI * 0.5
+// scene.add(floor)
+
+// /**
+//  * Lights
+//  */
+// const directionalLight = new THREE.DirectionalLight('#ffffff', 4)
+// directionalLight.castShadow = true
+// directionalLight.shadow.camera.far = 15
+// directionalLight.shadow.mapSize.set(1024, 1024)
+// directionalLight.shadow.normalBias = 0.05
+// directionalLight.position.set(3.5, 2, - 1.25)
+// scene.add(directionalLight)
+
+// gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
+// gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001).name('lightX')
+// gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001).name('lightY')
+// gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001).name('lightZ')
+
+// /**
+//  * Sizes
+//  */
+// const sizes = {
+//     width: window.innerWidth,
+//     height: window.innerHeight
+// }
+
+// window.addEventListener('resize', () =>
+// {
+//     // Update sizes
+//     sizes.width = window.innerWidth
+//     sizes.height = window.innerHeight
+
+//     // Update camera
+//     camera.aspect = sizes.width / sizes.height
+//     camera.updateProjectionMatrix()
+
+//     // Update renderer
+//     renderer.setSize(sizes.width, sizes.height)
+//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// })
+
+// /**
+//  * Camera
+//  */
+// // Base camera
+// const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100)
+// camera.position.set(6, 4, 8)
+// scene.add(camera)
+
+// // Controls
+// const controls = new OrbitControls(camera, canvas)
+// controls.enableDamping = true
+
+// /**
+//  * Renderer
+//  */
+// const renderer = new THREE.WebGLRenderer({
+//     canvas: canvas,
+//     antialias: true
+// })
+// renderer.physicallyCorrectLights = true
+// renderer.outputEncoding = THREE.sRGBEncoding
+// renderer.toneMapping = THREE.CineonToneMapping
+// renderer.toneMappingExposure = 1.75
+// renderer.shadowMap.enabled = true
+// renderer.shadowMap.type = THREE.PCFSoftShadowMap
+// renderer.setClearColor('#211d20')
+// renderer.setSize(sizes.width, sizes.height)
+// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+// /**
+//  * Animate
+//  */
+// const clock = new THREE.Clock()
+// let previousTime = 0
+
+// const tick = () =>
+// {
+//     const elapsedTime = clock.getElapsedTime()
+//     const deltaTime = elapsedTime - previousTime
+//     previousTime = elapsedTime
+
+//     // Update controls
+//     controls.update()
+
+//     // Fox animation
+//     if(foxMixer)
+//     {
+//         foxMixer.update(deltaTime)
+//     }
+
+//     // Render
+//     renderer.render(scene, camera)
+
+//     // Call tick again on the next frame
+//     window.requestAnimationFrame(tick)
+// }
+
+// tick()
