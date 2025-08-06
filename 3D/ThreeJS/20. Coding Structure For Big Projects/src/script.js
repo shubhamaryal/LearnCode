@@ -1,3 +1,40 @@
+import './style.css'
+import Experience from './Experience/Experience'
+
+const experience = new Experience(document.querySelector('canvas.webgl'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------
+
+
 // import test from './test.js'
 // console.log(test)
 
@@ -23,13 +60,13 @@
 // anotherThing()
 
 
-// ----------
+// ------------------------------------------
 
 // import { SphereGeometry } from 'three'
 // console.log(SphereGeometry)
 
 
-// ----------
+// ------------------------------------------
 
 // class HelloClass {}
 
@@ -158,12 +195,19 @@
 // astroBoy.takeOff()
 
 
-// ----------
+// ------------------------------------------
 
 // import Robot from './Robot.js'
 // import FlyingRobot from './FlyingRobot.js'
 
-// ----------
+// ------------------------------------------
+
+
+
+
+
+
+
 
 
 // import './style.css'
