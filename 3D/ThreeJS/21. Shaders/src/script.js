@@ -60,6 +60,7 @@ const material = new THREE.RawShaderMaterial({
     fragmentShader: testFragmentShader,
     // wireframe: true
     // side : THREE.DoubleSide
+    transparent: true
 })
 
 // Mesh

@@ -1,6 +1,7 @@
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
+// uniform mat4 modelViewMatrix;
 
 attribute vec3 position;
 
@@ -16,11 +17,20 @@ attribute vec3 position;
 //     float b = 2.0; 
 // }
 
-float loremIpsum(float a, float b) {
-    return a + b; 
-}
+// float loremIpsum(float a, float b) {
+//     return a + b; 
+// }
 
 void main () {
+    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+    // modelPosition.y += 1.0;
+    modelPosition.z += sin(modelPosition.x * 10.0) * 0.1 ;
+
+    vec4 viewPosition = viewMatrix * modelPosition;
+    vec4 projectedPosition = projectionMatrix * viewPosition;
+
+    gl_Position = projectedPosition;
+
     // float result = loremIpsum();
     // float result = loremIpsum(1.0, 2.0);
 
@@ -50,5 +60,8 @@ void main () {
     // vec4 foo = vec4(1.0, 2.0, 3.0, 4.0);
     // vec4 bar = vec4(foo.zw, vec2(5.0, 6.0));
 
-    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+    // gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+    // gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    // gl_Position.x += 0.5;
+    // gl_Position.y += 0.5;
 }
