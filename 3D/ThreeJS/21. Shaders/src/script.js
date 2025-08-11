@@ -30,6 +30,19 @@ const textureLoader = new THREE.TextureLoader()
  */
 // Geometry
 const geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
+// console.log(geometry)
+
+const count = geometry.attributes.position.count // this is the exact count of the vertices
+const randoms = new Float32Array(count)
+
+for(let i =0; i < count ; i++){
+    randoms[i] = Math.random()
+}
+// console.log(randoms)
+
+geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1)) // the one means that how many values to take for each vertex, usually we do 3 points per vertex but rn it is 1 value per vertex
+
+// console.log(geometry) // we can see that we have created a attribute with the name 'aRandom', where 'a' stands for attribute
 
 // Material
 // const material = new THREE.MeshBasicMaterial()

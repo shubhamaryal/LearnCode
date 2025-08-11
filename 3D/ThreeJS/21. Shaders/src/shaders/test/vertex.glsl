@@ -4,6 +4,7 @@ uniform mat4 modelMatrix;
 // uniform mat4 modelViewMatrix;
 
 attribute vec3 position;
+attribute float aRandom; 
 
 // float loremIpsum() {
 //     float a = 1.0; 
@@ -24,7 +25,8 @@ attribute vec3 position;
 void main () {
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
     // modelPosition.y += 1.0;
-    modelPosition.z += sin(modelPosition.x * 10.0) * 0.1 ;
+    // modelPosition.z += sin(modelPosition.x * 10.0) * 0.1 ;
+    modelPosition.z += aRandom * 0.1;
 
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
