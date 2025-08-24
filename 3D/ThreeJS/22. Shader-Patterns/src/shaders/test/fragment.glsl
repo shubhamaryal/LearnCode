@@ -125,8 +125,28 @@ void main() {
     // );
     // float strength = random(gridUv);
 
-    // Pattern 26
-    float strength = vUv.x;
+    // // Pattern 26
+    // float strength = length(vUv);
+
+    // // Pattern 27
+    // // float strength = length(vUv - 0.5);
+    // float strength = distance(vUv, vec2(0.5));
+    // // float strength = distance(vUv, vec2(0.2));
+    // // float strength = distance(vUv, vec2(0.8, 0.2));
+
+    // // Pattern 28
+    // float strength = 1.0 - distance(vUv, vec2(0.5));
+
+    // // Pattern 29
+    // float strength = 0.015 / distance(vUv, vec2(0.5));
+    // // float strength = 0.015 / distance(vUv, vec2(0.5)) + 0.25 ;
+
+    // Pattern 30
+    vec2 lightUv = vec2(
+        vUv.x * 0.2 + 0.4,
+        vUv.y * 0.5 + 0.25
+    );
+    float strength = 0.015 / distance(lightUv, vec2(0.5));
 
     gl_FragColor = vec4(strength, strength, strength, 1.0);
 }
