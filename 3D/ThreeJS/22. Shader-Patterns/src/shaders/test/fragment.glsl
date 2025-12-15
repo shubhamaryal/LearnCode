@@ -78,6 +78,7 @@ void main() {
 
     // // Pattern 6
     // float strength = 10.0 * vUv.y; 
+    // // here the value changes faster and makese the visuals look bright 
 
     // // Pattern 7
     // float strength = mod(vUv.y * 10.0, 1.0);
@@ -85,6 +86,7 @@ void main() {
     // // Pattern 8
     // float strength = mod(vUv.y * 10.0, 1.0);
     // strength = step(0.5, strength); 
+    // // if the value is below 0.5, the step will provide 0 and if the value is greater then 0.5 the step will provide 1
 
     // if(strength < 0.5) {
     //     strength = 0.0;
@@ -100,9 +102,9 @@ void main() {
     // float strength = mod(vUv.x * 10.0, 1.0);
     // strength = step(0.8, strength); 
 
-    // Pattern 11 
-    float strength = step(0.8, mod(vUv.x * 10.0, 1.0)); 
-    strength += step(0.8, mod(vUv.y * 10.0, 1.0)); 
+    // // Pattern 11 
+    // float strength = step(0.8, mod(vUv.x * 10.0, 1.0)); 
+    // strength += step(0.8, mod(vUv.y * 10.0, 1.0)); 
 
     // // Pattern 12
     // float strength = step(0.8, mod(vUv.x * 10.0, 1.0)); 
@@ -277,13 +279,13 @@ void main() {
     // angle += 0.5;
     // float strength = angle; 
 
-    // // Pattern 43
-    // float angle = atan(vUv.x - 0.5, vUv.y - 0.5);
-    // angle /= PI * 2.0;
-    // angle += 0.5;
-    // angle *= 20.0;
-    // angle = mod(angle, 1.0); 
-    // float strength = angle; 
+    // Pattern 43
+    float angle = atan(vUv.x - 0.5, vUv.y - 0.5);
+    angle /= PI * 2.0;
+    angle += 0.5;
+    angle *= 20.0;
+    angle = mod(angle, 1.0); 
+    float strength = angle; 
 
     // // Pattern 44
     // float angle = atan(vUv.x - 0.5, vUv.y - 0.5);
@@ -314,15 +316,15 @@ void main() {
     // Pattern 50
     // float strength = step(0.9, sin(cnoise(vUv * 10.0) * 20.0)); 
 
-    // Using Color 
-    strength = clamp(strength, 0.0, 1.0);
+    // // Using Color 
+    // strength = clamp(strength, 0.0, 1.0);
 
-    vec3 blackColor = vec3(0.0); 
-    // vec3 uvColor = vec3(vUv, 1.0);
-    vec3 uvColor = vec3(vUv, 0.5);
-    vec3 mixedColor = mix(blackColor, uvColor, strength);
-    gl_FragColor = vec4(mixedColor, 1.0);
+    // vec3 blackColor = vec3(0.0); 
+    // // vec3 uvColor = vec3(vUv, 1.0);
+    // vec3 uvColor = vec3(vUv, 0.5);
+    // vec3 mixedColor = mix(blackColor, uvColor, strength);
+    // gl_FragColor = vec4(mixedColor, 1.0);
 
     // Black and white 
-    // gl_FragColor = vec4(strength, strength, strength, 1.0);
+    gl_FragColor = vec4(strength, strength, strength, 1.0);
 }
