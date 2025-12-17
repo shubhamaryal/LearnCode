@@ -15,7 +15,7 @@ function walkDog(){
 }
 
 function cleanKitchen(){
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve,reject)=>{d
         setTimeout(()=>{
             const cleanedKitchen= true;
 
