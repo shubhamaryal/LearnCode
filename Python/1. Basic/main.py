@@ -1,0 +1,25 @@
+# # String indexing
+# a = "shubham"
+# print(a[0])
+
+# # String (speical functions)
+# a = "s"
+# print(ord(a))
+# print(chr(115))
+
+# # String slicing
+# a = "shubham aryal"
+# print(a[0:6:1])
+# print(a[0:7:2])
+
+# # Formatted output
+# name = "shubham"
+# age = "20"
+# print(f"my name is {name} and my age is {age}")
+
+# # Operators
+# a = 5
+# b = 20
+# print(b/a)
+# print(b//a)
+
