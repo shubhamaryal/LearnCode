@@ -8,20 +8,26 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import GUI from 'lil-gui'
+import { uniform } from 'three/src/nodes/TSL.js'
 
+// console.log(SMAAPass)
 // console.log(EffectComposer)
 // console.log(RenderPass)
 // console.log(DotScreenPass)
 // console.log(ShaderPass)
 // console.log(RGBShiftShader)
 // console.log(GammaCorrectionShader)
+// console.log(UnrealBloomPass)
 
 /**
  * Base
  */
 // Debug
 const gui = new GUI()
+gui.close()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -149,10 +155,22 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Post processing
  */
-const effectComposer = new EffectComposer(renderer)
+// Render target
+const renderTarget = new THREE.WebGLRenderTarget(
+    800, 
+    600,
+    // { samples: 2 }
+    { samples: renderer.getPixelRatio() === 1 ? 2 : 0 }
+)
+// console.log(renderer.getPixelRatio())
+
+// Effect composer
+// const effectComposer = new EffectComposer(renderer)
+const effectComposer = new EffectComposer(renderer, renderTarget)
 effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 effectComposer.setSize(sizes.width, sizes.height)
 
+// Render pass
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
 
@@ -163,7 +181,7 @@ effectComposer.addPass(dotScreenPass)
 
 // Glitch pass
 const glitchPass = new GlitchPass()
-glitchPass.enabled = true
+glitchPass.enabled = false
 glitchPass.goWild = false
 effectComposer.addPass(glitchPass)
 
@@ -172,9 +190,155 @@ const rgbShiftPass = new ShaderPass(RGBShiftShader)
 rgbShiftPass.enabled = false
 effectComposer.addPass(rgbShiftPass)
 
+// Unreal bloom pass
+const unRealBloomPass = new UnrealBloomPass()
+unRealBloomPass.strength = 0.3
+unRealBloomPass.radius = 1
+unRealBloomPass.threshold = 0.6
+unRealBloomPass.enabled = true
+effectComposer.addPass(unRealBloomPass)
+
+gui.add(unRealBloomPass, 'enabled')
+gui.add(unRealBloomPass, 'strength').min(0).max(2).step(0.001)
+gui.add(unRealBloomPass, 'radius').min(0).max(2).step(0.001)
+gui.add(unRealBloomPass, 'threshold').min(0).max(1).step(0.001)
+
+// Tint pass
+const TintShader = {
+    uniforms: {
+        tDiffuse: { value: null },
+        uTint: { value: null }
+    },
+    vertexShader: `
+        varying vec2 vUv;
+
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+            vUv = uv;
+        }
+    `,
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform vec3 uTint;
+    
+        varying vec2 vUv;
+
+        void main() {
+            vec4 color = texture2D(tDiffuse, vUv);
+            // color.r += 0.1;
+            // color.b += 0.1;
+            color.rgb += uTint;
+
+            // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            gl_FragColor = color;
+        }
+    `,
+}
+const tintPass = new ShaderPass(TintShader)
+tintPass.material.uniforms.uTint.value = new THREE.Vector3()
+effectComposer.addPass(tintPass)
+
+gui.add(tintPass.material.uniforms.uTint.value, 'x').min(-1).max(1).step(0.001).name('red')
+gui.add(tintPass.material.uniforms.uTint.value, 'y').min(-1).max(1).step(0.001).name('green')
+gui.add(tintPass.material.uniforms.uTint.value, 'z').min(-1).max(1).step(0.001).name('blue')
+
+// // Displacement pass
+// const DisplacementShader = {
+//     uniforms: {
+//         tDiffuse: { value: null },
+//         uTime: { value: null },
+//     },
+//     vertexShader: `
+//         varying vec2 vUv;
+
+//         void main() {
+//             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+//             vUv = uv;
+//         }
+//     `,
+//     fragmentShader: `
+//         uniform sampler2D tDiffuse;
+//         uniform float uTime;
+    
+//         varying vec2 vUv;
+
+//         void main() {
+//             // vec2 newUv = vUv;
+//             vec2 newUv = vec2(
+//                 vUv.x, 
+//                 vUv.y + sin(vUv.x * 10.0 + uTime) * 0.1
+//             );
+//             // newUv.y += 0.2;
+//             // newUv.y += 0.5;
+//             // vec4 color = texture2D(tDiffuse, vUv);
+//             vec4 color = texture2D(tDiffuse, newUv);
+
+//             gl_FragColor = color;
+//         }
+//     `,
+// }
+// const displacementPass = new ShaderPass(DisplacementShader)
+// displacementPass.material.uniforms.uTime.value = 0
+// effectComposer.addPass(displacementPass)
+
+// Displacement pass
+const DisplacementShader = {
+    uniforms: {
+        tDiffuse: { value: null },
+        uNormalMap: { value: null }
+    },
+    vertexShader: `
+        varying vec2 vUv;
+
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+            vUv = uv;
+        }
+    `,
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform sampler2D uNormalMap;
+    
+        varying vec2 vUv;
+
+        void main() {
+            // vec4 normalColor = texture2D(uNormalMap, vUv);
+            vec3 normalColor = texture2D(uNormalMap, vUv).xyz * 2.0 - 1.0;
+
+            // vec2 newUv = vUv;
+            vec2 newUv = vUv + normalColor.xy * 0.1;
+            vec4 color = texture2D(tDiffuse, newUv);
+
+            vec3 lightDirection = normalize(vec3(-1.0, 1.0, 0.0));
+            float lightness = clamp(dot(normalColor, lightDirection), 0.0, 1.0);
+            color.rgb += lightness * 2.0;
+
+            gl_FragColor = color;
+            // gl_FragColor = normalColor;
+        }
+    `,
+}
+const displacementPass = new ShaderPass(DisplacementShader)
+displacementPass.material.uniforms.uNormalMap.value = textureLoader.load('/textures/interfaceNormalMap.png')
+effectComposer.addPass(displacementPass)
+
 // Gamma correction pass 
 const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader)
 effectComposer.addPass(gammaCorrectionPass)
+
+// SMAA pass
+// console.log(renderer.capabilities)
+// const smaaPass = new SMAAPass()
+// effectComposer.addPass(smaaPass)
+if(renderer.getPixelRatio() === 1 && !renderer.capabilities.isWebGL2) {
+    const smaaPass = new SMAAPass()
+    effectComposer.addPass(smaaPass)
+
+    console.log('Using SMAA')
+}
 
 /**
  * Animate
@@ -183,6 +347,9 @@ const clock = new THREE.Clock()
 
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
+
+    // // Update passes
+    // displacementPass.material.uniforms.uTime.value = elapsedTime
 
     // Update controls
     controls.update()
