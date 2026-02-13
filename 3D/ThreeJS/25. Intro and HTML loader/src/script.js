@@ -1,12 +1,63 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { gsap } from 'gsap'
+
+// console.log(gsap)
+
 
 /**
  * Loaders
- */
-const gltfLoader = new GLTFLoader()
-const cubeTextureLoader = new THREE.CubeTextureLoader()
+*/
+const loadingbarElement = document.querySelector('.loading-bar')
+// console.log(loadingbarElement)
+
+const loadingManager = new THREE.LoadingManager(
+    // Loaded
+    () => {
+        // console.log('loaded')
+        // gsap.to(overlayMaterial.uniforms.uAlpha, {
+        //     duration: 3,
+        //     value: 0
+        // })
+
+        // loadingbarElement.classList.add('ended')
+        // loadingbarElement.style.transform = ''
+
+        // window.setTimeout(() => {
+        //     gsap.to(overlayMaterial.uniforms.uAlpha, {
+        //         duration: 3,
+        //         value: 0
+        //     })
+
+        //     loadingbarElement.classList.add('ended')
+        //     loadingbarElement.style.transform = ''
+        // }, 500)
+
+        gsap.delayedCall(0.5, () => {
+            gsap.to(overlayMaterial.uniforms.uAlpha, {
+                duration: 3,
+                value: 0
+            })
+
+            loadingbarElement.classList.add('ended')
+            loadingbarElement.style.transform = ''
+        })
+    }, 
+    // Progress
+    (itemUrl, itemsLoaded, itemsTotal) => {
+        // console.log('progress')
+        // console.log(itemUrl, itemsLoaded, itemsTotal)
+        // console.log(itemsLoaded / itemsTotal)
+        const progressRatio = itemsLoaded / itemsTotal
+        // console.log(progressRatio)
+        loadingbarElement.style.transform = `scaleX(${progressRatio})`
+    },
+)
+// const gltfLoader = new GLTFLoader()
+// const cubeTextureLoader = new THREE.CubeTextureLoader()
+const gltfLoader = new GLTFLoader(loadingManager)
+const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager)
 
 /**
  * Base
@@ -31,6 +82,7 @@ const overlayMaterial = new THREE.ShaderMaterial({
     // wireframe: true,
     transparent: true,
     // uniforms: { uAlpha: { value: 0.5 } },
+    // uniforms: { uAlpha: { value: 0 } },
     uniforms: { uAlpha: { value: 1 } },
     vertexShader: `
         void main() {
