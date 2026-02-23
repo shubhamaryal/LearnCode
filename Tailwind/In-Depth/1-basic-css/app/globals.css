@@ -1,0 +1,214 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* 
+  To make the content centered, we must use max-width.
+*/
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  height: 100%;
+}
+
+.layout {
+  height: 100%;
+  background-image: linear-gradient(to bottom, #dbeafe, #dbeafe, white);
+}
+
+/* 
+  Linear gradient: First we have to define how the gradient should go, top to bottom or left to right or anything we like.
+  Then we will define the colors we want in the gradient. We can have multiple colors. In the above code, The gradient goes from top to bottom and the color goes blue -> blue -> white.
+*/
+
+.layout-lines-container {
+  position: absolute;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 100%;
+  inset: 0;
+}
+
+.navbar-root {
+  display: flex;
+  /* fle makes the element allign left to right */
+  align-items: center;
+  /* 
+    Makes all the elements in one line.
+    Eg: There are 3 boxes with different heights. Using align-items: center will make all the boxes be on the same line. They will get alligned Horizontally.
+
+    If we do justify-content: center, all the boxes will be in the center.
+
+    For visualization there is "drawing.tldr" file
+  */
+  justify-content: space-between;
+  /* 
+    This will make the childrens far apart. Tada vagxan children haru.
+
+    Jati pani space xa tyo sab ligne ani paxxi children haru lai evenly rakhne 
+   */
+  padding: 24px 0px;
+  /* padding: top bottom left right */
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.links-items {
+  font-size: 18px;
+  text-decoration: none;
+  color: #525252;
+}
+
+.links-items:hover {
+  color: black;
+  transition: color 0.2s ease-out;
+  /* transition: where time easing */
+}
+
+.btn {
+  all: unset;
+  /* all: unset; will remove all the stylings */
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: #3b82f6;
+  border-radius: 10px;
+  color: #ffffff;
+  text-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  /* For both text and box shadow the syntax is: (x y blur spread color) */
+  cursor: pointer;
+}
+
+.hero-root {
+  padding: 80px 0px;
+}
+
+.badge {
+  font-size: 15px;
+  max-width: 400px;
+  border-radius: 50px;
+  background-color: #f5f5f5;
+  padding: 10px 14px;
+  width: fit-content;
+  margin: 0 auto;
+  /* makes the element to the center */
+  border: 1.2px solid #e5e5e5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.badge:hover {
+  background-color: #e5e5e5;
+  transition: background-color 0.2s ease-out;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: -0.14px;
+  line-height: 1;
+  margin-top: 38px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: #737373;
+  text-align: center;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 14px;
+}
+
+.btn-secondary {
+  all: unset;
+  font-size: 16px;
+  color: black;
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: #d6e1f0;
+    transition: background-color 0.2s ease-out;
+  }
+}
+
+.left-line {
+  height: 100%;
+  width: 1px;
+
+  background: linear-gradient(to bottom, #d4d4d4, #d4d4d4, #f5f5f5);
+
+  position: absolute;
+  left: -60px;
+}
+
+.right-line {
+  height: 100%;
+  width: 1px;
+
+  background: linear-gradient(to bottom, #d4d4d4, #d4d4d4, #f5f5f5);
+
+  position: absolute;
+  right: -60px;
+}
+
+.hero-img-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+.hero-image {
+  width: 1000px;
+  height: 550px;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+  object-position: top left;
+}
+
+.horizontal-line {
+  height: 1px;
+  width: 100%;
+
+  background: linear-gradient(to right, #f5f5f5, #d4d4d4, #d4d4d4, #f5f5f5);
+
+  /* This % denotes that, the white will be on the first 10% of the content then the last 90% denotes that the white will be after 90% of the content */
+
+  position: absolute;
+  top: -40px;
+}

@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import "tailwindcss";
+
+/* :root {
+  --primary-color: red;
+} */
+
+/*
+  Example usage of root primary color:
+ 
+  className="text-[var(--primary-color)]"
+*/
+
+/* 
+  But there is better way, and it is using @theme
+*/
+
+@theme {
+  --color-primary: oklch(63.7% 0.237 25.331);
+  --font-display: "Manrope", sans-serif;
+  --font-shubham: "Oswald", sans-serif;
+  --spacing-shubham-relaxed: 4rem;
+}
+
+/*
+  Now we dont have to use "var" in the class we can directly provide it.
+
+  Eg: text-primary
+*/
+
+/* And changing in one place will change all the theme of the website which makes it easy, we dont have to go through all the files and change the color of the website */
+
+/*
+  Eg: mr-shubham-relaxed
+*/
