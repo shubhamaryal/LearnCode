@@ -8,8 +8,10 @@ import { Leva } from "leva";
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
 root.render(
-    <StrictMode>
-  <Leva>
+  <StrictMode>
+    {/* <Leva /> */}
+    <Leva collapsed />
+
     <Canvas
       camera={{
         fov: 45,
@@ -20,7 +22,5 @@ root.render(
     >
       <Experience />
     </Canvas>
-    ,
-  </Leva>,
-    </StrictMode>
+  </StrictMode>,
 );
