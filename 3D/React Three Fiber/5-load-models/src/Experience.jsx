@@ -6,6 +6,9 @@ import { Perf } from "r3f-perf";
 import Model from "./Model";
 // console.log(DRACOLoader)
 import { Suspense } from "react";
+import Placeholder from "./Placeholder";
+import Hamburger from "./Hamburger";
+import Fox from "./Fox";
 
 export default function Experience() {
     // const model = useLoader(GLTFLoader, "./hamburger.glb");
@@ -31,7 +34,13 @@ export default function Experience() {
         <>
             <Perf position="top-left" />
             <OrbitControls makeDefault />
-            <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} />
+            {/* <directionalLight castShadow position={[1, 2, 3]} intensity={4.5} /> */}
+            <directionalLight
+                castShadow
+                position={[1, 2, 3]}
+                intensity={4.5}
+                shadow-normalBias={0.04}
+            />
             <ambientLight intensity={1.5} />
             {/* <mesh castShadow position-x={-2}>
                 <sphereGeometry />
@@ -55,16 +64,23 @@ export default function Experience() {
             {/* <primitive object={model.scene} scale={5} position-y={-1} /> */}
 
             {/* <Suspense> */}
-            <Suspense
+            {/* <Suspense
                 fallback={
                     <mesh position-y={0.5} scale={[2, 3, 2]}>
-                        <boxGeometry args={[1, 1, 1]} />
+                        <boxGeometry args={[1, 1, 1, 2, 2, 2]} />
                         <meshBasicMaterial wireframe color={"red"} />
                     </mesh>
                 }
+            > */}
+            {/* <Suspense fallback={<Placeholder />}> */}
+            <Suspense
+                fallback={<Placeholder position-y={0.5} scale={[2, 3, 2]} />}
             >
-                <Model />
+                {/* <Model /> */}
+                <Hamburger scale={0.35} />
             </Suspense>
+
+            <Fox />
         </>
     );
 }
