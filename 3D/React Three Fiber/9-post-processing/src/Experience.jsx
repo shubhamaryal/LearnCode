@@ -1,6 +1,7 @@
 import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import {
+    // SSR,
     EffectComposer,
     Vignette,
     Glitch,
@@ -9,15 +10,18 @@ import {
     DepthOfField,
 } from "@react-three/postprocessing";
 import { BlendFunction, GlitchMode } from "postprocessing";
+import Drunk from "./Drunk";
+import { useRef } from "react";
 
 export default function Experience() {
+    const drunkRef = useRef();
     return (
         <>
             <color args={["#ffffff"]} attach={"background"} />
             {/* <color args={["#000000"]} attach={"background"} /> */}
 
             {/* <EffectComposer multisampling={0}></EffectComposer> */}
-            <EffectComposer>
+            <EffectComposer disableNormalPass>
                 {/* <Vignette
                     offset={0.3}
                     darkness={0.9}
@@ -36,7 +40,20 @@ export default function Experience() {
 
                 {/* <Bloom mipmapBlur intensity={0.5} luminanceThreshold={0} /> */}
 
-                <DepthOfField />
+                {/* <DepthOfField
+                    focusDistance={0.025}
+                    focalLength={0.025}
+                    bokehScale={6}
+                /> */}
+
+                {/* <SSR /> */}
+
+                <Drunk
+                    ref={drunkRef}
+                    frequency={2}
+                    amplitude={0.1}
+                    blendFunction={BlendFunction.DARKEN}
+                />
             </EffectComposer>
 
             <Perf position="top-left" />
@@ -73,7 +90,11 @@ export default function Experience() {
                 scale={10}
             >
                 <planeGeometry />
-                <meshStandardMaterial color="greenyellow" />
+                <meshStandardMaterial
+                    color="greenyellow"
+                    metalness={0}
+                    roughness={0}
+                />
             </mesh>
         </>
     );
