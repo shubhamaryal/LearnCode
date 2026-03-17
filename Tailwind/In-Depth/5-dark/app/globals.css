@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Here we define colors that should be applied in the light mode */
+:root {
+    --background: var(--color-neutral-50);
+    --foreground: var(--color-neutral-950);
+}
+
+/* the keyframe should match the name of the animation */
+/* CSS */
+/* .animate-me {
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(-100);
+    }
+    to {
+        transform: translateX(100%);
+    }
+} */
+
+/* Theme variable / Tailwind */
+@theme {
+    --animate-marquee: marquee 10s linear infinite;
+
+    @keyframes marquee {
+        from {
+            transform: translateX(-100);
+        }
+        to {
+            transform: translateX(100%);
+        }
+    }
+}
+
+.dark {
+    --background: var(--color-neutral-950);
+    --foreground: var(--color-neutral-50);
+}
+
+/* If we are using other variable inside a variable them we should use inline, using just @theme might not give the result we want  */
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+}
+
+/* Here we define colors that should be applied in the dark mode */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+/* this 2[background and color] toggles the color acoording to dark/light mode */
+/* body {
+  background: var(--background); 
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+} */
